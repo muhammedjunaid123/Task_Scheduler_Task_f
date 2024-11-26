@@ -16,4 +16,8 @@ export class TaskService {
   getAll(date:Date){
     return this._http.get<_IApiResponse<_Itask[]>>(`/task/getAll?date=${date}`)
   }
+
+update(status:boolean,id:string){ 
+return this._http.put<_IApiResponse<_Itask>>('/task/update',{status:status,id:id})
+}
 }

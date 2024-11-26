@@ -7,6 +7,7 @@ export interface _Itask {
 }
 
 export interface _IData {
+    _id:string,
     create_date: Date;
     due_date: Date;
     status: boolean;

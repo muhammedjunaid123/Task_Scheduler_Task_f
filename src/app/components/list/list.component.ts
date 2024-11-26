@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TaskService } from '../../service/task/task.service';
 import { _IApiResponse, _IData, _Itask } from '../../types/interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list',
@@ -13,20 +14,20 @@ export class ListComponent {
   currentPage: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
-  constructor(private _taskService: TaskService) { }
+  constructor(private _taskService: TaskService, private _Toastr: ToastrService) { }
 
-  ngOnInit(): void {
-    const today = new Date(); 
-    const tomorrow = new Date(today); 
+  apiCall() {
+    const today = new Date();
+    const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
     this._taskService.getAll(tomorrow).subscribe({
       next: (res: _IApiResponse<_Itask[]>) => {
-
         this.tasks = res['data']
       }
     })
-
-
+  }
+  ngOnInit(): void {
+    this.apiCall()
     this.totalPages = Math.ceil(this.tasks.length / this.pageSize);
 
   }
@@ -50,7 +51,12 @@ export class ListComponent {
     }
   }
 
-  toggleStatus(task: any): void {
-    task.status = !task.status;
+  toggleStatus(status: boolean, id: string) {
+    this._taskService.update(!status, id).subscribe({
+      next: (res: _IApiResponse<_Itask>) => {
+        this._Toastr.success(res['message'])
+        this.apiCall()
+      }
+    })
   }
 }
