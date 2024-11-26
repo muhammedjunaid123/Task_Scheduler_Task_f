@@ -1,135 +1,125 @@
+
+
+<button routerLink="/create_task" class="fixed right-4 bottom-4 bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl transition-all duration-300 ease-in-out">
+    Create Task
+  </button>
+  
 <div class="max-w-full mx-auto my-8 p-4 sm:p-6 bg-white shadow-lg rounded-lg">
     <h2 class="text-xl sm:text-2xl font-semibold text-center text-gray-800 mb-4 sm:mb-6">Task List</h2>
-  
+
     <!-- Search Bar -->
     <div class="mb-4">
-      <input
-        type="text"
-        [(ngModel)]="searchText"
-        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
-        placeholder="Search tasks by name or pattern"
-      />
+        <input type="text" [(ngModel)]="searchText"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
+            placeholder="Search tasks by name or pattern" />
     </div>
-  
+
     <!-- Desktop UI (Table Format) -->
     <div class="hidden sm:block">
-      <!-- For desktop, show the table layout -->
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse border border-gray-200 text-sm sm:text-base">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="border border-gray-200 px-3 py-2 text-left">#</th>
-              <th class="border border-gray-200 px-3 py-2 text-left">Name</th>
-              <th class="border border-gray-200 px-3 py-2 text-left">Pattern</th>
-              <th class="border border-gray-200 px-3 py-2 text-left">Due Date</th>
-              <th class="border border-gray-200 px-3 py-2 text-left">Status</th>
-              <th class="border border-gray-200 px-3 py-2 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let task of tasks; let i = index" [hidden]="!isTaskVisible(i)" class="odd:bg-white even:bg-gray-50">
-              <td class="border border-gray-200 px-3 py-2">{{ i + 1 }}</td>
-              <td class="border border-gray-200 px-3 py-2">{{ task.name }}</td>
-              <td class="border border-gray-200 px-3 py-2">{{ task.pattern }}</td>
-              <td class="border border-gray-200 px-3 py-2">{{ task.datas[0].due_date |  date:'MMMM dd, yyyy h:mm a' }}</td>
-              <td class="border border-gray-200 px-3 py-2">
-                <span
-                  class="inline-block px-2 py-1 text-xs sm:text-sm rounded-md"
-                  [ngClass]="{
+        <!-- For desktop, show the table layout -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full border-collapse border border-gray-200 text-sm sm:text-base">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="border border-gray-200 px-3 py-2 text-left">#</th>
+                        <th class="border border-gray-200 px-3 py-2 text-left">Name</th>
+                        <th class="border border-gray-200 px-3 py-2 text-left">Pattern</th>
+                        <th class="border border-gray-200 px-3 py-2 text-left">Due Date</th>
+                        <th class="border border-gray-200 px-3 py-2 text-left">Status</th>
+                        <th class="border border-gray-200 px-3 py-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of tasks; let i = index" [hidden]="!isTaskVisible(i)"
+                        class="odd:bg-white even:bg-gray-50">
+                        <td class="border border-gray-200 px-3 py-2">{{ i + 1 }}</td>
+                        <td class="border border-gray-200 px-3 py-2">{{ task.name }}</td>
+                        <td class="border border-gray-200 px-3 py-2">{{ task.pattern }}</td>
+                        <td class="border border-gray-200 px-3 py-2">{{ task.datas[0].due_date | date:'MMMM dd, yyyy
+                            h:mm a' }}</td>
+                        <td class="border border-gray-200 px-3 py-2">
+                            <span class="inline-block px-2 py-1 text-xs sm:text-sm rounded-md" [ngClass]="{
                     'bg-green-200 text-green-800': task.datas[0].status,
                     'bg-red-200 text-red-800': !task.datas[0].status
-                  }"
-                >
-                  {{ task.datas[0].status ? 'Completed' : 'Pending' }}
-                </span>
-              </td>
-              <td class="border border-gray-200 px-3 py-2">
-                <button
-                  (click)="toggleStatus(task.datas[0].status,task.datas[0]._id)"
-                  class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm"
-                >
-                  {{ task.datas[0].status ? 'Mark Pending' : 'Mark Completed' }}
-                </button>
-              </td>
-              <td class="border border-gray-200 px-3 py-2">
-                
-                <button
-                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm"
-              >
-               view details
-              </button>
-              </td>
-              <td class="border border-gray-200 px-3 py-2">
-                
-                <button (click)="delete_task(task._id)"
-                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm"
-              >
-               delete
-              </button>
-              </td>
-              
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                  }">
+                                {{ task.datas[0].status ? 'Completed' : 'Pending' }}
+                            </span>
+                        </td>
+                        <td class="border border-gray-200 px-3 py-2">
+                            @if(!task.datas[0].status){
+
+                            <button (click)="toggleStatus(task.datas[0].status,task.datas[0]._id)"
+                                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm">
+                                Mark Completed </button>
+                            }@else {
+                                <button
+                                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm">
+                                Completed </button>
+                            }
+                        </td>
+                        <td class="border border-gray-200 px-3 py-2">
+
+                            <button (click)="detail(task._id)"
+                                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm">
+                                view details
+                            </button>
+                        </td>
+                        <td class="border border-gray-200 px-3 py-2">
+
+                            <button (click)="delete_task(task._id)"
+                                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm">
+                                delete
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  
-    <!-- Phone UI (Custom List Format) -->
     <div class="block sm:hidden">
         <!-- For phones, show the custom list layout -->
         <div class="space-y-4">
-          <div *ngFor="let task of tasks; let i = index" [hidden]="!isTaskVisible(i)" class="border border-gray-200 p-4 rounded-lg shadow-sm bg-gray-50">
-            <div class="flex justify-between items-center">
-              <h3 class="font-semibold text-gray-700">{{ task.name }}</h3>
-              <div class="flex gap-2">
-                <button
-                  (click)="toggleStatus(task.datas[0].status,task.datas[0]._id )"
-                  class="px-3 py-1 text-sm bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700"
-                >
-                  {{ task.datas[0].status ? 'Mark Pending' : 'Mark Completed' }}
-                </button>
-                <button
-    
-                  class="px-3 py-1 text-sm bg-indigo-300 text-white rounded-md shadow-md hover:bg-indigo-400"
-                >
-                  View Details
-                </button>
-                
-              </div>
+            <div *ngFor="let task of tasks; let i = index" [hidden]="!isTaskVisible(i)"
+                class="border border-gray-200 p-4 rounded-lg shadow-lg bg-white">
+
+                <!-- Task Information and Action Buttons -->
+                <div class="flex flex-col space-y-3">
+                    <!-- Task Title & Status Button -->
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-semibold text-xl text-gray-800 truncate">{{ task.name }}</h3>
+                        <button (click)="toggleStatus(task.datas[0].status, task.datas[0]._id)"
+                            class="mt-2 px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700">
+                            {{ task.datas[0].status ? 'Mark Pending' : 'Mark Completed' }}
+                        </button>
+                    </div>
+
+                    <!-- Task Pattern -->
+                    <p class="text-gray-600 text-sm">{{ task.pattern }}</p>
+
+                    <!-- Task Due Date -->
+                    <p class="text-gray-500 text-xs">{{ task.datas[0]['due_date'] | date:'MMMM dd, yyyy h:mm a' }}</p>
+
+                    <!-- Status Indicator -->
+                    <span class="inline-block px-2 py-1 mt-2 text-xs rounded-md" [ngClass]="{
+                    'bg-green-200 text-green-800': task.datas[0].status,
+                    'bg-red-200 text-red-800': !task.datas[0].status
+                }">
+                        {{ task.datas[0].status ? 'Completed' : 'Pending' }}
+                    </span>
+
+                    <!-- Action Buttons (Stacked vertically) -->
+                    <div class="flex flex-col gap-2 mt-4">
+                        <button (click)="detail(task._id)"
+                            class="px-4 py-2 text-sm bg-indigo-300 text-white rounded-lg shadow-md hover:bg-indigo-400">
+                            View Details
+                        </button>
+                        <button (click)="delete_task(task._id)"
+                            class="px-4 py-2 text-sm bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600">
+                            Delete
+                        </button>
+                    </div>
+                </div>
             </div>
-            <p class="text-gray-500 text-sm">{{ task.pattern }}</p>
-            <p class="text-gray-500 text-xs">{{ task.datas[0]['due_date'] |  date:'MMMM dd, yyyy h:mm a' }}</p>
-            <span
-              class="inline-block px-2 py-1 mt-2 text-xs rounded-md"
-              [ngClass]="{
-                'bg-green-200 text-green-800': task.datas[0].status,
-                'bg-red-200 text-red-800': !task.datas[0].status
-              }"
-            >
-              {{ task.datas[0].status ? 'Completed' : 'Pending' }}
-            </span>
-          </div>
         </div>
-      </div>
-      
-  
-    <!-- Pagination -->
-    <div class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <button
-        (click)="prevPage()"
-        [disabled]="currentPage === 1"
-        class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 disabled:opacity-50 text-sm sm:text-base"
-      >
-        Previous
-      </button>
-      <span class="text-center text-sm sm:text-base">Page {{ currentPage }} of {{ totalPages }}</span>
-      <button
-        (click)="nextPage()"
-        [disabled]="currentPage === totalPages"
-        class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 disabled:opacity-50 text-sm sm:text-base"
-      >
-        Next
-      </button>
     </div>
-  </div>
-  

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TaskService } from '../../service/task/task.service';
 import { _IApiResponse, _IData, _Itask } from '../../types/interface';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +15,7 @@ export class ListComponent {
   currentPage: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
-  constructor(private _taskService: TaskService, private _Toastr: ToastrService) { }
+  constructor(private _taskService: TaskService, private _Toastr: ToastrService, private _route: Router) { }
 
   apiCall() {
     const today = new Date();
@@ -37,17 +38,7 @@ export class ListComponent {
     return index >= start && index < end;
   }
 
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
 
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  }
 
   toggleStatus(status: boolean, id: string) {
     this._taskService.update(!status, id).subscribe({
@@ -64,5 +55,9 @@ export class ListComponent {
         this.apiCall()
       }
     })
+  }
+  detail(id: string) {
+    
+    this._route.navigate(['detail_page'], { queryParams: { id: id } })
   }
 }

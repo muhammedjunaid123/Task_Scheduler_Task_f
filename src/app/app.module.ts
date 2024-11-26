@@ -11,12 +11,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { httpInterceptor } from './interceptor/http/http.interceptor';
+import { DetailPageComponent } from './components/detail-page/detail-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    DetailPageComponent
   ],
   imports: [
     BrowserModule,

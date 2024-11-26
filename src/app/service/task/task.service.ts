@@ -23,4 +23,10 @@ export class TaskService {
   delete(id: string) {
     return this._http.delete<_IApiResponse<_Itask>>(`/task/delete?id=${id}`)
   }
+  task_detail(id:string){
+    return this._http.get<_IApiResponse<_Itask>>(`/task/task_detail?id=${id}`)
+  }
+  next_occurrence(id:string){
+    return this._http.get<_IApiResponse<any>>(`/task/next_occurrence?id=${id}`)
+  }
 }
