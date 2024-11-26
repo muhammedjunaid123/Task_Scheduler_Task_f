@@ -59,6 +59,14 @@
                view details
               </button>
               </td>
+              <td class="border border-gray-200 px-3 py-2">
+                
+                <button (click)="delete_task(task._id)"
+                class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm"
+              >
+               delete
+              </button>
+              </td>
               
             </tr>
           </tbody>
@@ -86,6 +94,7 @@
                 >
                   View Details
                 </button>
+                
               </div>
             </div>
             <p class="text-gray-500 text-sm">{{ task.pattern }}</p>

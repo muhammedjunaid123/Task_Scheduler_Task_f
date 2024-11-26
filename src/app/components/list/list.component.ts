@@ -18,9 +18,7 @@ export class ListComponent {
 
   apiCall() {
     const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    this._taskService.getAll(tomorrow).subscribe({
+    this._taskService.getAll(today).subscribe({
       next: (res: _IApiResponse<_Itask[]>) => {
         this.tasks = res['data']
       }
@@ -28,7 +26,7 @@ export class ListComponent {
   }
   ngOnInit(): void {
     this.apiCall()
-    this.totalPages = Math.ceil(this.tasks.length / this.pageSize);
+    this.totalPages = 1
 
   }
 
@@ -53,6 +51,14 @@ export class ListComponent {
 
   toggleStatus(status: boolean, id: string) {
     this._taskService.update(!status, id).subscribe({
+      next: (res: _IApiResponse<_Itask>) => {
+        this._Toastr.success(res['message'])
+        this.apiCall()
+      }
+    })
+  }
+  delete_task(id: string) {
+    this._taskService.delete(id).subscribe({
       next: (res: _IApiResponse<_Itask>) => {
         this._Toastr.success(res['message'])
         this.apiCall()

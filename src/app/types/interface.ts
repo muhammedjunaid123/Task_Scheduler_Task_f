@@ -1,4 +1,5 @@
 export interface _Itask {
+    _id:string,
     name: string;
     pattern: string;
     datas: _IData[];
