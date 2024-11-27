@@ -15,17 +15,19 @@ export class ListComponent {
   currentPage: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
+  filterDate!: Date
   constructor(private _taskService: TaskService, private _Toastr: ToastrService, private _route: Router) { }
 
   apiCall() {
-    const today = new Date();
-    this._taskService.getAll(today).subscribe({
+
+    this._taskService.getAll(this.filterDate, this.searchText).subscribe({
       next: (res: _IApiResponse<_Itask[]>) => {
         this.tasks = res['data']
       }
     })
   }
   ngOnInit(): void {
+    this.filterDate = new Date();
     this.apiCall()
     this.totalPages = 1
 
@@ -57,7 +59,8 @@ export class ListComponent {
     })
   }
   detail(id: string) {
-    
+
     this._route.navigate(['detail_page'], { queryParams: { id: id } })
   }
+
 }

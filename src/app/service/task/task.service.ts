@@ -13,8 +13,8 @@ export class TaskService {
   create_task(task: _Itask): Observable<_IApiResponse<_Itask>> {
     return this._http.post<_IApiResponse<_Itask>>('/task/create', task)
   }
-  getAll(date: Date) {
-    return this._http.get<_IApiResponse<_Itask[]>>(`/task/getAll?date=${date}`)
+  getAll(date: Date, search: string) {
+    return this._http.get<_IApiResponse<_Itask[]>>(`/task/getAll?date=${date}&search=${search}`)
   }
 
   update(status: boolean, id: string) {
@@ -23,10 +23,10 @@ export class TaskService {
   delete(id: string) {
     return this._http.delete<_IApiResponse<_Itask>>(`/task/delete?id=${id}`)
   }
-  task_detail(id:string){
+  task_detail(id: string) {
     return this._http.get<_IApiResponse<_Itask>>(`/task/task_detail?id=${id}`)
   }
-  next_occurrence(id:string){
+  next_occurrence(id: string) {
     return this._http.get<_IApiResponse<any>>(`/task/next_occurrence?id=${id}`)
   }
 }

@@ -1,17 +1,17 @@
-
-
-<button routerLink="/create_task" class="fixed right-4 bottom-4 bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl transition-all duration-300 ease-in-out">
+<button routerLink="/create_task"
+    class="fixed right-4 bottom-4 bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 hover:shadow-xl transition-all duration-300 ease-in-out">
     Create Task
-  </button>
-  
+</button>
+
 <div class="max-w-full mx-auto my-8 p-4 sm:p-6 bg-white shadow-lg rounded-lg">
     <h2 class="text-xl sm:text-2xl font-semibold text-center text-gray-800 mb-4 sm:mb-6">Task List</h2>
 
     <!-- Search Bar -->
     <div class="mb-4">
-        <input type="text" [(ngModel)]="searchText"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm sm:text-base"
-            placeholder="Search tasks by name or pattern" />
+        <input type="text" [(ngModel)]="searchText" (ngModelChange)="apiCall()"
+            class=" w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500
+            focus:border-indigo-500 text-sm sm:text-base" placeholder="Search tasks by name or pattern" />
+        <input type="date" [(ngModel)]="filterDate" (ngModelChange)="apiCall()">
     </div>
 
     <!-- Desktop UI (Table Format) -->
@@ -52,7 +52,7 @@
                                 class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm">
                                 Mark Completed </button>
                             }@else {
-                                <button
+                            <button
                                 class="px-3 py-2 bg-indigo-600 text-white rounded-md shadow-md hover:bg-indigo-700 text-xs sm:text-sm">
                                 Completed </button>
                             }
